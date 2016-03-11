@@ -1,3 +1,16 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica;
+    background: #EFEFEF;
+}
+#blog {
+	width: 90%;
+    margin: auto;
+    padding:10px;
+    background: white;
+}
 .blog-header {
 	text-align: center;
 }

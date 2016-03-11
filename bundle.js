@@ -2,7 +2,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var allPosts = [{ postId: 1, title: 'sample1', body: 'This is a sample blog post1', date: '5/3' }, { postId: 2, title: 'sample2', body: 'This is a sample blog post2', date: '5/4' }, { postId: 3, title: 'sample3', body: 'This is a sample blog post3', date: '5/5' }];
+var allPosts = [{ postId: 1, title: 'Sample1', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/3' }, { postId: 2, title: 'Sample2', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/4' }, { postId: 3, title: 'Sample3', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/5' }];
 
 var allComments = [{ postId: 1, author: 'Alex Nuccio', content: 'This post suuuucks', date: '5/5' }, { postId: 2, author: 'Alex Nuccio', content: 'This post is awesome', date: '5/5' }, { postId: 4, author: 'Alex Nuccio', content: 'This post isnt here', date: '5/5' } //this won't show up
 ];
@@ -67,14 +67,10 @@ var CommentAddForm = React.createClass({
 		return React.createElement(
 			'form',
 			{ onSubmit: this.handleSubmit },
-			React.createElement(
-				'label',
-				null,
-				'Comment'
-			),
-			React.createElement('input', { className: 'comment-add-box',
+			React.createElement('textarea', { className: 'comment-add-box',
 				value: this.state.content,
-				onChange: this.handleContentChange }),
+				onChange: this.handleContentChange,
+				placeholder: 'Add Comment Here' }),
 			React.createElement(
 				'label',
 				null,
@@ -99,6 +95,7 @@ var CommentForm = React.createClass({
 		comment.postId = this.props.postid;
 		this.props.comments.push(comment);
 
+		//add comment to state
 		this.setState({ comments: this.props.comments });
 	},
 	render: function () {
@@ -108,6 +105,11 @@ var CommentForm = React.createClass({
 		return React.createElement(
 			'div',
 			{ className: 'comment-form' },
+			React.createElement(
+				'h2',
+				{ id: 'commentHeader' },
+				'Comments'
+			),
 			React.createElement(CommentList, { comments: commentsForThisPost }),
 			React.createElement(CommentAddForm, { commentSubmit: this.handleCommentSubmit })
 		);
@@ -136,14 +138,9 @@ var BlogPost = React.createClass({
 			'div',
 			{ className: 'blog-post' },
 			React.createElement(
-				'div',
+				'h1',
 				{ className: 'blog-post-title' },
 				this.props.title
-			),
-			React.createElement(
-				'div',
-				{ className: 'blog-post-time' },
-				this.props.date
 			),
 			React.createElement(
 				'div',

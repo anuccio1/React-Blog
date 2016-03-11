@@ -2,9 +2,9 @@ var React    = require('react');
 var ReactDOM = require('react-dom');
 
 var allPosts = [
-	{postId: 1, title: 'sample1', body: 'This is a sample blog post1', date: '5/3'  },
-	{postId: 2, title: 'sample2', body: 'This is a sample blog post2', date: '5/4'	},
-	{postId: 3, title: 'sample3', body: 'This is a sample blog post3', date: '5/5'	}
+	{postId: 1, title: 'Sample1', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/3'  },
+	{postId: 2, title: 'Sample2', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/4'	},
+	{postId: 3, title: 'Sample3', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/5'	}
 ];
 
 var allComments = [
@@ -60,10 +60,11 @@ var CommentAddForm = React.createClass({
 	render: function () {
 		return (
 			<form onSubmit={this.handleSubmit}>
-				<label>Comment</label>
-				<input className="comment-add-box" 
+				<textarea className="comment-add-box" 
 					   value={this.state.content}
-					   onChange = {this.handleContentChange} />
+					   onChange = {this.handleContentChange}
+					   placeholder= "Add Comment Here" >
+				</textarea>
 				<label>Name</label>
 				<input type="text" 
 					   value={this.state.author} 
@@ -83,6 +84,7 @@ var CommentForm = React.createClass({
 		comment.postId = this.props.postid;
 		this.props.comments.push(comment);
 
+		//add comment to state
 		this.setState({comments: this.props.comments});
 	},
 	render: function () {
@@ -91,6 +93,7 @@ var CommentForm = React.createClass({
 		});
 		return (
 			<div className="comment-form">
+				<h2 id="commentHeader">Comments</h2>
 				<CommentList comments={commentsForThisPost} />
 				<CommentAddForm commentSubmit={this.handleCommentSubmit}/>
 			</div>
@@ -112,8 +115,7 @@ var BlogPost = React.createClass({
 	render: function () {
 		return (
 			<div className="blog-post">
-				<div className="blog-post-title">{this.props.title}</div>
-				<div className="blog-post-time">{this.props.date}</div>
+				<h1 className="blog-post-title">{this.props.title}</h1>
 				<div className="blog-post-body">{this.props.body}</div>
 				<CommentForm comments={allComments} postid={this.props.postid} />
 			</div>
