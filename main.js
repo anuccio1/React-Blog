@@ -2,9 +2,9 @@ var React    = require('react');
 var ReactDOM = require('react-dom');
 
 var allPosts = [
-	{postId: 1, title: 'Sample1', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/3'  },
-	{postId: 2, title: 'Sample2', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/4'	},
-	{postId: 3, title: 'Sample3', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/5'	}
+	{postId: 1, title: 'Blog Post 1', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/3'  },
+	{postId: 2, title: 'Blog Post 2', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/4'	},
+	{postId: 3, title: 'Blog Post 3', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/5'	}
 ];
 
 var allComments = [
@@ -15,22 +15,33 @@ var allComments = [
 
 /* COMMENT COMPONENTS */
 
+var Comment = React.createClass({
+	render: function () {
+		return (
+			<div className="comment"> 
+				<div className="comment-author">
+					<i className="fa fa-user fa-3x"></i>
+					{this.props.author} on {this.props.date}
+				</div>
+				<div className="comment-body">
+					{this.props.content}
+				</div>
+			</div>
+		);
+	}
+})
+
 var CommentList = React.createClass({
 	render: function () {
 		var commentList = this.props.comments.map(function (comment) {
 			return (
-				<div className="comment-list"> 
-					<div className="comment-author">
-						Comment By: {comment.author} on {comment.date}
-					</div>
-					<div className="comment-body">
-						{comment.content}
-					</div>
-				</div>
+				<Comment author={comment.author} content= {comment.content} date={comment.date} />
 			);
 		})
 		return ( 
-			<div>{commentList}</div>
+			<div className="comment-list">
+				{commentList}
+			</div>
 		);
 	}
 });
@@ -59,17 +70,22 @@ var CommentAddForm = React.createClass({
 	},
 	render: function () {
 		return (
-			<form onSubmit={this.handleSubmit}>
-				<textarea className="comment-add-box" 
-					   value={this.state.content}
-					   onChange = {this.handleContentChange}
-					   placeholder= "Add Comment Here" >
-				</textarea>
-				<label>Name</label>
+			<form className="comment-add-form" onSubmit={this.handleSubmit}>
+				<div>
+					<label className="comment-label">Comment</label>
+					<textarea className="comment-add-box" 
+						   value = {this.state.content}
+						   onChange = {this.handleContentChange}
+						   placeholder= "Add Comment Here"
+						   cols="45"
+						   rows="8" >
+					</textarea>
+				</div>
+				<label className="comment-label">Name</label>
 				<input type="text" 
 					   value={this.state.author} 
 					   onChange={this.handleAuthorChange} />
-				<input type="submit" value="Submit Comment" />
+				<input className="comment-label comment-submit" type="submit" value="Submit Comment" />
 			</form>
 		);
 	}
@@ -95,7 +111,7 @@ var CommentForm = React.createClass({
 			<div className="comment-form">
 				<h2 id="commentHeader">Comments</h2>
 				<CommentList comments={commentsForThisPost} />
-				<CommentAddForm commentSubmit={this.handleCommentSubmit}/>
+				<CommentAddForm commentSubmit={this.handleCommentSubmit} />
 			</div>
 		);
 	}
@@ -106,7 +122,7 @@ var CommentForm = React.createClass({
 var BlogTitle = React.createClass({
 	render: function() {
 		return  (
-			<h1 className="blog-header">Alex's Siiiick Blog</h1>
+			<h1 className="blog-header">Alex's Very Trill, Very Sick Blog</h1>
 		);
 	}
 });

@@ -2,39 +2,47 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var allPosts = [{ postId: 1, title: 'Sample1', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/3' }, { postId: 2, title: 'Sample2', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/4' }, { postId: 3, title: 'Sample3', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/5' }];
+var allPosts = [{ postId: 1, title: 'Blog Post 1', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/3' }, { postId: 2, title: 'Blog Post 2', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/4' }, { postId: 3, title: 'Blog Post 3', body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.', date: '5/5' }];
 
 var allComments = [{ postId: 1, author: 'Alex Nuccio', content: 'This post suuuucks', date: '5/5' }, { postId: 2, author: 'Alex Nuccio', content: 'This post is awesome', date: '5/5' }, { postId: 4, author: 'Alex Nuccio', content: 'This post isnt here', date: '5/5' } //this won't show up
 ];
 
 /* COMMENT COMPONENTS */
 
+var Comment = React.createClass({
+	displayName: 'Comment',
+
+	render: function () {
+		return React.createElement(
+			'div',
+			{ className: 'comment' },
+			React.createElement(
+				'div',
+				{ className: 'comment-author' },
+				React.createElement('i', { className: 'fa fa-user fa-3x' }),
+				this.props.author,
+				' on ',
+				this.props.date
+			),
+			React.createElement(
+				'div',
+				{ className: 'comment-body' },
+				this.props.content
+			)
+		);
+	}
+});
+
 var CommentList = React.createClass({
 	displayName: 'CommentList',
 
 	render: function () {
 		var commentList = this.props.comments.map(function (comment) {
-			return React.createElement(
-				'div',
-				{ className: 'comment-list' },
-				React.createElement(
-					'div',
-					{ className: 'comment-author' },
-					'Comment By: ',
-					comment.author,
-					' on ',
-					comment.date
-				),
-				React.createElement(
-					'div',
-					{ className: 'comment-body' },
-					comment.content
-				)
-			);
+			return React.createElement(Comment, { author: comment.author, content: comment.content, date: comment.date });
 		});
 		return React.createElement(
 			'div',
-			null,
+			{ className: 'comment-list' },
 			commentList
 		);
 	}
@@ -66,20 +74,31 @@ var CommentAddForm = React.createClass({
 	render: function () {
 		return React.createElement(
 			'form',
-			{ onSubmit: this.handleSubmit },
-			React.createElement('textarea', { className: 'comment-add-box',
-				value: this.state.content,
-				onChange: this.handleContentChange,
-				placeholder: 'Add Comment Here' }),
+			{ className: 'comment-add-form', onSubmit: this.handleSubmit },
+			React.createElement(
+				'div',
+				null,
+				React.createElement(
+					'label',
+					{ className: 'comment-label' },
+					'Comment'
+				),
+				React.createElement('textarea', { className: 'comment-add-box',
+					value: this.state.content,
+					onChange: this.handleContentChange,
+					placeholder: 'Add Comment Here',
+					cols: '45',
+					rows: '8' })
+			),
 			React.createElement(
 				'label',
-				null,
+				{ className: 'comment-label' },
 				'Name'
 			),
 			React.createElement('input', { type: 'text',
 				value: this.state.author,
 				onChange: this.handleAuthorChange }),
-			React.createElement('input', { type: 'submit', value: 'Submit Comment' })
+			React.createElement('input', { className: 'comment-label comment-submit', type: 'submit', value: 'Submit Comment' })
 		);
 	}
 });
