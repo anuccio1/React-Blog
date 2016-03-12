@@ -15,7 +15,7 @@ html, body {
 	text-align: center;
 }
 .blog-post {
-	margin: 15px 0 25px 0;
+	margin-bottom: 50px;
 }
 .blog-post-title {
 	color: #21759B;
@@ -38,4 +38,7 @@ html, body {
 }
 .comment-avatar {
 	margin-right: 10px;
+}
+.comment-add-box {
+	width: 40%;
 }

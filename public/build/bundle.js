@@ -18954,9 +18954,7 @@ var Comment = React.createClass({
 				'div',
 				{ className: 'comment-author' },
 				React.createElement('i', { className: 'comment-avatar fa fa-user fa-3x' }),
-				this.props.author,
-				' on ',
-				this.props.date
+				this.props.author
 			),
 			React.createElement(
 				'div',
@@ -19168,7 +19166,7 @@ var BlogPostList = React.createClass({
 	}
 });
 
-//parent component
+//most parent component
 var BlogPage = React.createClass({
 	displayName: 'BlogPage',
 

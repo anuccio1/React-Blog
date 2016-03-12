@@ -9,7 +9,7 @@ var Comment = React.createClass({
 			<div className="comment">
 				<div className="comment-author">
 					<i className="comment-avatar fa fa-user fa-3x"></i>
-					{this.props.author} on {this.props.date}
+					{this.props.author}
 				</div>
 				<div className="comment-body">
 					{this.props.text}
@@ -189,7 +189,7 @@ var BlogPostList = React.createClass({
 	}
 });
 
-//parent component
+//most parent component
 var BlogPage = React.createClass({
 	render: function () {
 		return (
