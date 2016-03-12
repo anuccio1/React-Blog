@@ -1,0 +1,17 @@
+[
+    { 
+      "postId": 1, 
+      "title": "Blog Post 1", 
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.", "date": "5/3"  
+    },
+    { 
+      "postId": 2, 
+      "title": "Blog Post 2", 
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.", "date": "5/4"  
+    },
+    { 
+      "postId": 3, 
+      "title": "Blog Post 3", 
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae id voluptatem placeat nisi itaque fugiat eaque, suscipit numquam est corrupti optio quo adipisci ratione facilis. Pariatur minima accusantium, ab natus.", "date": "5/5"  
+    }
+]

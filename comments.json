@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1388534400000,
+        "postId": 1,
+        "author": "Pete Hunt",
+        "text": "Hey there!"
+    },
+    {
+        "id": 1420070400000,
+        "postId": 2,
+        "author": "Paul O’Shannessy",
+        "text": "React is *great*!"
+    },
+    {
+        "id": 1455155571272,
+        "postId": 3,
+        "author": "alex",
+        "text": "yo"
+    },
+    {
+        "id": 1455159750080,
+        "postId": 1,
+        "author": "al",
+        "text": "nu"
+    },
+    {
+        "id": 1457746811845,
+        "postId": 1,
+        "author": "alex Nuccio",
+        "text": "this is a test"
+    },
+    {
+        "id": 1457746941986,
+        "postId": 1,
+        "author": "paul",
+        "text": "yo yo yo"
+    },
+    {
+        "id": 1457747097643,
+        "postId": 2,
+        "author": "alex n",
+        "text": "ya ya ya ya"
+    }
+]
