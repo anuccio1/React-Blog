@@ -39,15 +39,21 @@ router.post('/comments', function(req, res) {
       process.exit(1);
     }
     var comments = JSON.parse(data);
+    
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
+    var currPostId = Number(req.body.postId);
+    if (isNaN(currPostId)) {
+      currPostId = -1;
+    }
     var newComment = {
       id: Date.now(),
-      postId: Number(req.body.postId),
+      postId: currPostId,
       author: req.body.author,
       text: req.body.text,
     };
+
     comments.push(newComment);
 
     fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {

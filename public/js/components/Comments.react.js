@@ -1,9 +1,9 @@
 var React    = require('react');
-var ReactDOM = require('react-dom');
+var $        = require('jquery');
 
 /* COMMENT COMPONENTS */
 
-var Comment = React.createClass({
+const Comment = React.createClass({
 	render: function () {
 		return (
 			<div className="comment">
@@ -19,11 +19,11 @@ var Comment = React.createClass({
 	}
 })
 
-var CommentList = React.createClass({
+const CommentList = React.createClass({
 	render: function () {
 		var commentList = this.props.comments.map(function (comment) {
 			return (
-				<Comment author={comment.author} text= {comment.text} date={comment.date} />
+				<Comment key={comment.id} author={comment.author} text= {comment.text} date={comment.date} />
 			);
 		})
 		return ( 
@@ -34,7 +34,7 @@ var CommentList = React.createClass({
 	}
 });
 
-var CommentAddForm = React.createClass({
+const CommentAddForm = React.createClass({
 	getInitialState: function () {
 		return {author:'', text: ''}
 	},
@@ -79,7 +79,7 @@ var CommentAddForm = React.createClass({
 	}
 });
 
-var CommentForm = React.createClass({
+const CommentForm = React.createClass({
 	getInitialState: function () {
 		return {comments: []};
 	},
@@ -129,79 +129,4 @@ var CommentForm = React.createClass({
 	}
 });
 
-/*BLOG COMPONENTS*/
-
-var BlogTitle = React.createClass({
-	render: function() {
-		return  (
-			<h1 className="blog-header">Alex's Very Trill, Very Sick Blog</h1>
-		);
-	}
-});
-
-var BlogPost = React.createClass({
-	render: function () {
-		return (
-			<div className="blog-post">
-				<h1 className="blog-post-title">{this.props.title}</h1>
-				<div className="blog-post-body">{this.props.text}</div>
-				<CommentForm commentsurl={this.props.commentsurl} postid={this.props.postid} />
-			</div>
-		);
-	}
-});
-
-var BlogPostList = React.createClass({
-	getInitialState: function () {
-		return { posts:[] };
-	},
-	loadPostsFromServer: function () {
-		$.ajax({
-	      url: this.props.postsurl,
-	      dataType: 'json',
-	      type: 'GET',
-	      success: function (data) {
-	        this.setState({posts:data});
-	      }.bind(this),
-	      error: function (xhr, status, err) {
-	        console.error(this.props.postsurl, status, err.toString());
-	      }.bind(this)
-	    });
-	},
-	componentDidMount: function () {
-		this.loadPostsFromServer();
-	},
-	render: function () {
-		var blogPosts = this.state.posts.map( (post) => {
-			return (
-				<BlogPost 
-					postid =  {post.postId}
-					title  =  {post.title} 
-					date   =  {post.date} 
-					text   =  {post.text}
-					commentsurl= {this.props.commentsurl} >
-				</BlogPost>
-			);
-		});
-		return (
-			<div>{blogPosts}</div>
-		);
-	}
-});
-
-//most parent component
-var BlogPage = React.createClass({
-	render: function () {
-		return (
-			<div className="blog-parent">
-				<BlogTitle />
-			    <BlogPostList commentsurl={this.props.commentsurl} postsurl={this.props.postsurl} />
-			</div>
-		);
-	}
-});
-
-ReactDOM.render(
-  <BlogPage commentsurl="/api/comments" postsurl="/api/posts" />,
-  document.getElementById('blog')
-);
+module.exports = {CommentForm}
