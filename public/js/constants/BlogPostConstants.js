@@ -1,7 +1,7 @@
 var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
-  POST_CREATE: null,
-  POST_EDIT: null,
-  POST_DELETE: null
+  POST_LOAD: null,
+  POST_LOAD_SUCCESS: null,
+  POST_LOAD_FAILURE: null
 });

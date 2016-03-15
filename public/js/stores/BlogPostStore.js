@@ -4,12 +4,11 @@ var EventEmitter = require('events').EventEmitter;
 var BlogPostConstants = require('../constants/BlogPostConstants');
 var assign = require('object-assign');
 
-var _blogposts = {};
+var _blogposts = [];
 var CHANGE_EVENT = 'change';
 
-var create = function (text, title) {
-  var postId = (+new Date() + Math.floor(Math.random() * 999999)).toString(36); 
-  _blogposts[postId] = {text: text, title: title};
+var _load = function (posts) {
+  _blogposts = posts;
 }
 
 var BlogPostStore = assign({}, EventEmitter.prototype, {
@@ -43,17 +42,10 @@ var BlogPostStore = assign({}, EventEmitter.prototype, {
 
 // Register callback to handle all updates
 AppDispatcher.register(function(action) {
-  var text, title;
-
   switch(action.actionType) {
-    case BlogPostConstants.BLOGPOST_CREATE: 
-      text   = action.text.trim();
-      title = action.title.trim();
-
-      if (text !== '' && title !== '') {
-        create(text, title);
-        BlogPostStore.emitChange();
-      }
+    case BlogPostConstants.POST_LOAD_SUCCESS: 
+      _load(action.posts);
+      BlogPostStore.emitChange();
       break;
 
     default:
