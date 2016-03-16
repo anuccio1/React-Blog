@@ -24,7 +24,7 @@ const CommentList = React.createClass({
 			return (
 				<Comment key={comment.id} author={comment.author} text= {comment.text} date={comment.date} />
 			);
-		})
+		});
 		return ( 
 			<div className="comment-list">
 				{commentList}

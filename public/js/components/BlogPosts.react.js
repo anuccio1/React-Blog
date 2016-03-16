@@ -1,7 +1,7 @@
 /*BLOG COMPONENTS*/
 
 var React = require('react');
-var CommentForm = require('./Comments.react');
+var CommentForm = require('./CommentController.react');
 
 const BlogPost = React.createClass({
 	render: function () {

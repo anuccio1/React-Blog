@@ -9,11 +9,7 @@ var CommentClient = {
           dataType: 'json',
           type: 'GET',
           success: function (data) {
-          	success({
-            	text: data.text,
-              postId: data.postId,
-              author: data.author
-          	});
+          	success(data);
           },
           error: function (xhr, status, err) {
             failure(status, err.toString());
@@ -25,7 +21,7 @@ var CommentClient = {
           url: commentsURL,
           dataType: 'json',
           type: 'POST',
-          data: postObj
+          data: postObj,
           success: function (data) {
           	success({
 	          	text: data.text,

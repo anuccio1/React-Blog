@@ -7,14 +7,19 @@ var assign = require('object-assign');
 var _comments = {};
 var CHANGE_EVENT = 'change';
 
+var _load = function (comments, postid) {
+  _comments[postid] = comments;
+};
+
 var CommentStore = assign({}, EventEmitter.prototype, {
 
   /**
    * Get the entire collection of TODOs.
    * @return {object}
    */
-  getAll: function() {
-    return _comments;
+  getAll: function(postid) {
+    var commentsToReturn = _comments[postid] || [];
+    return commentsToReturn;
   },
 
   emitChange: function() {
@@ -38,20 +43,33 @@ var CommentStore = assign({}, EventEmitter.prototype, {
 
 // Register callback to handle all updates
 AppDispatcher.register(function(action) {
-  var text, postId, author;
+  var text, postId, author, comments;
 
   switch(action.actionType) {
-    case TodoConstants.COMMENT_CREATE: 
+    case CommentConstants.COMMENT_CREATE: {
       text   = action.text.trim();
       postId = action.postId.trim();
       author = action.author.trim();
 
       if (text !== '') {
         create(text);
-        TodoStore.emitChange();
+        CommentStore.emitChange();
       }
       break;
+    }
+    case CommentConstants.COMMENT_LOAD_SUCCESS: {
+      comments = action.comments;
+      postId = action.postId;
 
+      _load(comments, postId);
+      CommentStore.emitChange();
+
+      break;
+    }
+    case CommentConstants.COMMENT_POST_SUCCESS: {
+      console.log('post success');
+      break;
+    }
     default:
       // no op
   }

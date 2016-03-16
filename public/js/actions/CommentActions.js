@@ -5,16 +5,15 @@ var CommentClient = require('../clients/CommentClient');
 var CommentActions = {
 
   load: function(postId) {
-    AppDispatcher.dispatch({ actionType: CommentConstants.COMMENT_LOAD });
+    //AppDispatcher.dispatch({ actionType: CommentConstants.COMMENT_LOAD });
 
     CommentClient.load(postId,
-      function (data) {
+      function (comments) {
         //successful loading of posts. dispatch message
         AppDispatcher.dispatch({
           actionType: CommentConstants.COMMENT_LOAD_SUCCESS,
-          text: data.text,
-          author: data.author,
-          postId: data.postId
+          comments: comments,
+          postId: postId
         });
       },
       function (status, err) {
@@ -25,7 +24,7 @@ var CommentActions = {
           err: err
         });
       });
-  }
+  },
   /**
    * @param  {string} comment: this is an object 
    */

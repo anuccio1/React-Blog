@@ -1,55 +1,40 @@
 var React = require('react');
 var CommentList = require('./Comment.react').CommentList;
 var CommentAddForm = require('./Comment.react').CommentAddForm;
+var CommentStore 	= require('../stores/CommentStore');
+var CommentActions = require('../actions/CommentActions');
 
+function getCommentState (postid) {
+  return {
+    allComments: CommentStore.getAll(postid)
+  };
+}
 const CommentForm = React.createClass({
+
 	getInitialState: function () {
-		return {comments: []};
+		return getCommentState();
 	},
-	loadCommentsFromServer: function () {
-		var commentURL = this.props.commentsurl + '/' + this.props.postid;
-		$.ajax({
-	      url: commentURL,
-	      dataType: 'json',
-	      type: 'GET',
-	      success: function (data) {
-	        this.setState({comments:data});
-	      }.bind(this),
-	      error: function (xhr, status, err) {
-	        console.error(this.props.commentsurl, status, err.toString());
-	      }.bind(this)
-	    });
-	},
-	postCommentToServer: function (comment) {
-		var commentURL = this.props.commentsurl;
-		$.ajax({
-	      url: commentURL,
-	      dataType: 'json',
-	      type: 'POST',
-	      data: comment,
-	      success: function (data) {
-	        this.setState({comments:data});
-	      }.bind(this),
-	      error: function (xhr, status, err) {
-	        console.error(this.props.commentsurl, status, err.toString());
-	      }.bind(this)
-	    });
+	componentWillMount: function () {
+		CommentActions.load(this.props.postid);	//load posts from server
 	},
 	componentDidMount: function () {
-		this.loadCommentsFromServer();
+		CommentStore.addChangeListener(this._onChange);
+	},
+	componentWillUnmount: function () {
+		CommentStore.removeChangeListener(this._onChange);
 	},
 	render: function () {
-		var commentsForThisPost = this.state.comments.filter( (comment) => {
-			return (comment.postId === this.props.postid);
-		});
 		return (
 			<div className="comment-form">
 				<h2 id="commentHeader">Comments</h2>
-				<CommentList comments={commentsForThisPost} />
+				<CommentList comments={this.state.allComments} />
 				<CommentAddForm postid={this.props.postid} commentSubmit={this.postCommentToServer} />
 			</div>
 		);
+	},
+	_onChange: function () {
+		this.setState(getCommentState(this.props.postid));
 	}
 });
 
-module.exports = {CommentForm}
+module.exports = CommentForm;
