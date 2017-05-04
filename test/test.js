@@ -1,5 +1,5 @@
 describe('Fake', function () {
-  it('check user contents', function () {
-    expect(true).to.be.ok()
+  it('pass a test', function () {
+    return true
   })
 })
