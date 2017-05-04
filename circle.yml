@@ -11,4 +11,4 @@ machine:
 notify:
   webhooks:
     # A list of hashes representing hooks. Only the url field is supported.
-    - url: http://9796a3d3.ngrok.io/hooks/circleci
+    - url: http://4e7e5833.ngrok.io/hooks/circleci
