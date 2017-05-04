@@ -1,14 +1,22 @@
-## Customize the test machine
-machine:
-  timezone:
-    America/Los_Angeles # Set the timezone
-
-  # Add some environment variables
-  environment:
-    CIRCLE_ENV: test
-
-## Custom notifications
-notify:
-  webhooks:
-    # A list of hashes representing hooks. Only the url field is supported.
-    - url: http://4e7e5833.ngrok.io/hooks/circleci
+version: 2
+jobs:
+  build:
+    steps:
+      - run: |
+          npm install -g npm@latest
+      - run: npm install
+      - run: |
+          mkdir -p $( dirname $MOCHA_FILE )
+          ERROR=0
+          STDOUT_FILE=$( dirname $MOCHA_FILE )/stdout.txt
+          STDERR_FILE=$( dirname $MOCHA_FILE )/stderr.txt
+          touch $STDOUT_FILE || rm $STDOUT_FILE || touch $STDOUT_FILE
+          touch $STDERR_FILE || rm $STDERR_FILE || touch $STDERR_FILE
+          tail -f $STDOUT_FILE &
+          tail -f $STDERR_FILE &
+          npm run test -- -R mocha-multi 2> $STDERR_FILE > $STDOUT_FILE
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
