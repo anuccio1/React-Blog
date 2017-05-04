@@ -1,6 +1,12 @@
 version: 2
 jobs:
   build:
+    environment:
+      NODE_ENV: test
+      NPM_CONFIG_LOGLEVEL: info
+      NODE_VERSION: 4.2.6
+      MOCHA_FILE: /tmp/test-results/results.xml
+      multi: 'spec=- mocha-junit-reporter=-'
     steps:
       - run: |
           npm install -g npm@latest
