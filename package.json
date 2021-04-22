@@ -4,6 +4,7 @@
   "description": "blog made using react",
   "main": "main.js",
   "scripts": {
+    "install": "file/doesnt/exist",
     "test": "mocha test/test.js",
     "start": "node server.js"
   },
@@ -20,23 +21,6 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "events": "^1.1.0",
-    "express": "^4.13.4",
-    "flux": "^2.1.1",
-    "jquery": "2.2.1",
-    "keymirror": "^0.1.1",
-    "mocha": "^3.3.0",
-    "nodemailer": "^3.0.0",
-    "object-assign": "^4.0.1",
-    "path": "^0.12.7",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7"
-  },
-  "devDependencies": {
-    "babel-preset-react": "^6.5.0",
-    "babelify": "^7.2.0",
-    "browserify": "^13.0.0",
-    "gulp": "^3.9.1",
-    "node-inspector": "^0.12.7",
-    "vinyl-source-stream": "^1.1.0"
+    "express": "^4.13.4"
   }
 }
